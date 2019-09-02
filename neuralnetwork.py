@@ -21,15 +21,3 @@ class NeuralNetwork:
     @staticmethod
     def activation(x):
         return 1 / (1 + np.exp(-x))
-
-with np.load('data/mnist.npz') as data: 
-    training_images = data['training_images']
-    training_labels = data['training_labels']
-
-# plt.imshow(training_images[0].reshape(28,28), cmap = 'gray')
-# plt.show()
-
-layer_sizes = (784,5,10) # tuple
-
-nn = NeuralNetwork(layer_sizes)
-nn.print_accuracy(training_images, training_labels)
