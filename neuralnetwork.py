@@ -21,3 +21,14 @@ class NeuralNetwork:
     @staticmethod
     def activation(x):
         return 1 / (1 + np.exp(-x))
+
+    @staticmethod
+    def cost_function(output, y):
+        """
+        mean squared error (MSE) without mean
+        """
+        sum([(a - b) ** 2 for a, b in zip(output, y)])
+
+    @staticmethod
+    def cost_function_derivation(output, y):
+        return 2 * (output - y)
