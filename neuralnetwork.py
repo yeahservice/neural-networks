@@ -15,19 +15,27 @@ class NeuralNetwork:
 
     def print_accuracy(self, images, labels):
         predictions = self.predict(images)
-        num_correct = sum([np.argmax(a) == np.argmax(b) for a,b in zip(predictions, labels)])
+        num_correct = sum([np.argmax(p) == np.argmax(l) for p, l in zip(predictions, labels)])
         print("{0}/{1} accuracy: {2}%".format(num_correct, len(images), (num_correct / len(images)) * 100))
+
+    def calculate_average_cost(self, images, labels):
+        predictions = self.predict(images)
+        average_cost = sum([NeuralNetwork.cost_function(p, l) for p, l in zip(predictions, labels)]) / len(images)
+        print("average cost: {0}".format(average_cost))
 
     @staticmethod
     def activation(x):
+        """
+        sigmoid
+        """
         return 1 / (1 + np.exp(-x))
 
     @staticmethod
     def cost_function(output, y):
         """
-        mean squared error (MSE) without mean
+        squared error
         """
-        sum([(a - b) ** 2 for a, b in zip(output, y)])
+        return sum([(a - b) ** 2 for a, b in zip(output, y)])[0]
 
     @staticmethod
     def cost_function_derivation(output, y):
